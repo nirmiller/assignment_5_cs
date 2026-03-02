@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -7,36 +8,50 @@ namespace group_14_assignment_5;
 public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
+
+    private Bubbles _bubbles;
+
+    private Matrix view, projection;
+    Model bubbleModel;
+
+
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
+    
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
 
-    protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
-
-        base.Initialize();
-    }
-
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        bubbleModel = Content.Load<Model>("models/sphere");
 
-        // TODO: use this.Content to load your game content here
+        _bubbles = new Bubbles(10, GraphicsDevice, bubbleModel, new Vector3(0, -30, -50));
+        view = Matrix.CreateLookAt(
+            new Vector3(0, 0, 100),
+            Vector3.Zero,
+            Vector3.Up
+        );
+
+        projection = Matrix.CreatePerspectiveFieldOfView(
+            MathHelper.ToRadians(45f),
+            GraphicsDevice.Viewport.AspectRatio,
+            0.1f,
+            1000f
+        );
+
+
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
+        if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-
-        // TODO: Add your update logic here
+        
+        _bubbles.Update(gameTime);
+    
 
         base.Update(gameTime);
     }
@@ -44,9 +59,12 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
+        
 
-        // TODO: Add your drawing code here
+        _bubbles.Draw(view, projection);
+        
 
         base.Draw(gameTime);
     }
+    
 }
