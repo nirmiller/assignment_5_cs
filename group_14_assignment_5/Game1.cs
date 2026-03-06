@@ -13,6 +13,11 @@ public class Game1 : Game
 
     private Matrix view, projection;
     Model bubbleModel;
+    
+    private Submarine submarine;
+
+    private Matrix submarineView;
+    private Matrix submarineProjection;
 
 
 
@@ -41,6 +46,21 @@ public class Game1 : Game
             0.1f,
             1000f
         );
+        
+        submarine = new Submarine(Content);
+
+        submarineView = Matrix.CreateLookAt(
+            new Vector3(12, 8, 12),
+            Vector3.Zero,
+            Vector3.Up
+        );
+
+        submarineProjection = Matrix.CreatePerspectiveFieldOfView(
+            MathHelper.ToRadians(45f),
+            GraphicsDevice.Viewport.AspectRatio,
+            0.1f,
+            100f
+        );
 
 
     }
@@ -51,6 +71,7 @@ public class Game1 : Game
             Exit();
         
         _bubbles.Update(gameTime);
+        submarine.Update(gameTime);
     
 
         base.Update(gameTime);
@@ -62,6 +83,7 @@ public class Game1 : Game
         
 
         _bubbles.Draw(view, projection);
+        submarine.Draw(view, projection);
         
 
         base.Draw(gameTime);
