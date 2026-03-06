@@ -10,6 +10,7 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
 
     private Bubbles _bubbles;
+    private Bubbles _bubbles2;
 
     private Matrix view, projection;
     Model bubbleModel;
@@ -34,6 +35,7 @@ public class Game1 : Game
         bubbleModel = Content.Load<Model>("models/sphere");
 
         _bubbles = new Bubbles(10, GraphicsDevice, bubbleModel, new Vector3(0, -30, -50));
+        _bubbles2 = new Bubbles(15, GraphicsDevice, bubbleModel, new Vector3(30, -30, 0));
         view = Matrix.CreateLookAt(
             new Vector3(0, 0, 100),
             Vector3.Zero,
@@ -71,6 +73,7 @@ public class Game1 : Game
             Exit();
         
         _bubbles.Update(gameTime);
+        _bubbles2.Update(gameTime);
         submarine.Update(gameTime);
     
 
@@ -83,6 +86,7 @@ public class Game1 : Game
         
 
         _bubbles.Draw(view, projection);
+        _bubbles2.Draw(view, projection);
         submarine.Draw(view, projection);
         
 

@@ -12,6 +12,8 @@ public class Bubbles
 
     private Vector3 groupPosition;
     private float groupRiseSpeed = 10f;
+    
+    public Vector3 initialPosition;
 
     public Bubbles(int bubbleCount, GraphicsDevice graphicsDevice, Model bubbleModel, Vector3 _groupPosition)
     {
@@ -19,7 +21,7 @@ public class Bubbles
         this.bubbleModel = bubbleModel;
 
         groupPosition = _groupPosition;
-
+        initialPosition = _groupPosition;
         bubbles = new Bubble[bubbleCount];
         var rng = new Random();
 
@@ -43,6 +45,11 @@ public class Bubbles
     {
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         groupPosition.Y += groupRiseSpeed*(float)Math.Sin(dt);
+
+        if (groupPosition.Y > 40)
+        {
+            groupPosition = initialPosition;
+        }
 
         foreach (var b in bubbles)
             b.Animate(gameTime);
