@@ -46,7 +46,7 @@ public class Bubbles
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         groupPosition.Y += groupRiseSpeed*(float)Math.Sin(dt);
 
-        if (groupPosition.Y > 40)
+        if (groupPosition.Y > 100)
         {
             groupPosition = initialPosition;
         }

@@ -34,8 +34,8 @@ public class Game1 : Game
     {
         bubbleModel = Content.Load<Model>("models/sphere");
 
-        _bubbles = new Bubbles(10, GraphicsDevice, bubbleModel, new Vector3(0, -30, -50));
-        _bubbles2 = new Bubbles(15, GraphicsDevice, bubbleModel, new Vector3(30, -30, 0));
+        _bubbles = new Bubbles(10, GraphicsDevice, bubbleModel, new Vector3(0, -90, -50));
+        _bubbles2 = new Bubbles(15, GraphicsDevice, bubbleModel, new Vector3(30, -90, 0));
         view = Matrix.CreateLookAt(
             new Vector3(0, 0, 100),
             Vector3.Zero,
